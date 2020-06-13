@@ -4,11 +4,13 @@ const Project = require('../model/Project');
 const fetch = require('node-fetch');
 
 
-const DELETEUSERPROJECTURL='http://localhost:8000/api/userProject/delete/';
-const CREATEUSERPROJECTURL='http://localhost:8000/api/userProject/create';
-const FINDUSERPROJECT ='http://localhost:8000/api/userProject/findOne';
-const GETCOLLABORATOR = 'http://localhost:8000/api/userProject/getCollaborator/';
-const GETUSERID='http://localhost:8000/api/user/';
+const domainForAuthApi='http://localhost:8000'
+
+const DELETEUSERPROJECTURL=domainForAuthApi+'/api/userProject/delete/';
+const CREATEUSERPROJECTURL=domainForAuthApi+'/api/userProject/create';
+const FINDUSERPROJECT =domainForAuthApi+'/api/userProject/findOne';
+const GETCOLLABORATOR =domainForAuthApi+ '/api/userProject/getCollaborator/';
+const GETUSERID=domainForAuthApi+'/api/user/';
 
 
 function getIdCopy(projectType){
