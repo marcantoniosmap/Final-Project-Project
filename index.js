@@ -10,6 +10,7 @@ const projectRoute = require('./routes/project');
 
 
 dotenv.config();
+const port = process.env.PORT || 8000
 
 
 //Connect to DB
@@ -29,4 +30,6 @@ app.get('/',(req,res)=>{
 
 app.use('/api/project', projectRoute);
 
-app.listen(9000);
+app.listen(port,()=>{
+    console.log(`listening on port ${port}`)
+})
