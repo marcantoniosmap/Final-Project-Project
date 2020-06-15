@@ -4,7 +4,7 @@ const Project = require('../model/Project');
 const fetch = require('node-fetch');
 
 
-const domainForAuthApi='http://localhost:8000'
+const domainForAuthApi='CogetherAuth-env.eba-3vhu2w8q.ap-southeast-1.elasticbeanstalk.com'
 
 const DELETEUSERPROJECTURL=domainForAuthApi+'/api/userProject/delete/';
 const CREATEUSERPROJECTURL=domainForAuthApi+'/api/userProject/create';
