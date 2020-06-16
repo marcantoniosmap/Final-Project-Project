@@ -151,6 +151,7 @@ router.get('/check/:id',verify,async(req,res)=>{
 
 router.post('/create',verify,async(req,res) => {
     const projectType=req.body.projectType
+
     const idForCopy=getIdCopy(projectType);
     const sourceCopy = await Project.findOne({_id:idForCopy});
     const sourceArr=sourceCopy.source;
@@ -160,7 +161,7 @@ router.post('/create',verify,async(req,res) => {
         description:req.body.description,
         projectType : req.body.projectType,
         source : sourceArr
-    })
+    });
     try {
       const savedProject = await project.save();
       const userProjectBody =JSON.stringify({
