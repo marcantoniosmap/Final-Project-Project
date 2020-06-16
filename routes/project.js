@@ -4,8 +4,8 @@ const Project = require('../model/Project');
 const fetch = require('node-fetch');
 
 
-const domainForAuthApi='CogetherAuth-env.eba-3vhu2w8q.ap-southeast-1.elasticbeanstalk.com'
-// const domainForAuthApi='localhost:8000'
+const domainForAuthApi='http://CogetherAuth-env.eba-3vhu2w8q.ap-southeast-1.elasticbeanstalk.com'
+// const domainForAuthApi='http://localhost:8000'
 
 const DELETEUSERPROJECTURL=domainForAuthApi+'/api/userProject/delete/';
 const CREATEUSERPROJECTURL=domainForAuthApi+'/api/userProject/create';
@@ -45,22 +45,22 @@ function modified(project){
 
 router.get('/detail/:id',verify,async(req,res)=>{
   const project_id= req.params.id;
+  const fetchAPI=async(url,token)=>{
+    try{
+     const getUser = await fetch(url,{
+       method:'GET', headers:{
+      'auth-token':token}
+         });
+       const json = await getUser.json();
+       return json;
+    }catch(err){
+      console.log(err);
+    }
+  }
   try{
      const project= await Project.findOne({_id:project_id});
      const retProject = modified(project);
      const url= GETUSERID+project.owner_id;
-     const fetchAPI=async(url,token)=>{
-       try{
-        const getUser = await fetch(url,{
-          method:'GET', headers:{
-         'auth-token':token}
-            });
-          const json = await getUser.json();
-          return json;
-       }catch(err){
-         console.log(err);
-       }
-     }
     const user = await fetchAPI(url,req.header('auth-token'));
     const collab = await fetchAPI(GETCOLLABORATOR+project_id,req.header('auth-token'));
 
