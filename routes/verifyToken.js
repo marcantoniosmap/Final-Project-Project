@@ -9,8 +9,8 @@ module.exports = async function (req,res,next){
     try{
         const getUser = async (token)=>{
             try{
-                const response = await fetch(`http://CogetherAuth-env.eba-3vhu2w8q.ap-southeast-1.elasticbeanstalk.com/api/user/checkToken/${token}`,
-                // const response = await fetch(`localhost:8000/api/user/checkToken/${token}`,
+                const response = await fetch(`https://cogether.me/api/user/checkToken/${token}`,
+                // const response = await fetch(`http://localhost:8000/api/user/checkToken/${token}`,
                                                 {method:'GET'});
                 const data = await response.json();
                 return data;

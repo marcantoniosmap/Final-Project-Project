@@ -153,7 +153,6 @@ router.post('/create',verify,async(req,res) => {
     const projectType=req.body.projectType
     const idForCopy=getIdCopy(projectType);
     const sourceCopy = await Project.findOne({_id:idForCopy});
-    console.log(sourceCopy);
     const sourceArr=sourceCopy.source;
     const project = new Project({
         owner_id: req.user._id,
@@ -169,20 +168,20 @@ router.post('/create',verify,async(req,res) => {
         project_id: project._id,
         ownership_type:"owner"
       });
-      const get_data = async url =>{
+      const get_data = async (url,token,userProjectbody) =>{
         try{
           const userProject = await fetch(url,
             {method:'POST', headers:{
               "Content-Type":'application/json',
-              "auth-token":req.header('auth-token')
-            }, body:userProjectBody});
+              "auth-token":token
+            }, body:userProjectbody});
             const json = await userProject.json();
             return json;
           } catch (err){
             console.log(err);
           }
       }
-      const json = await get_data(CREATEUSERPROJECTURL);
+      const json = await get_data(CREATEUSERPROJECTURL,req.header('auth-token'),userProjectBody);
       res.send({status:200,project:savedProject,userpro:json});
 
     }catch(err){
