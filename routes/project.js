@@ -17,7 +17,7 @@ const DELETECOLLABORATOR = domainForAuthApi+'/api/userProject/deleteCollaborator
 
 function getIdCopy(projectType){
   if (projectType==="vanilla"){
-    return '5ee48e02bf59374e615e2b28'
+    return '5eeaa798b505f31e57e68260'
   }
   else if (projectType==="react"){
     // return '5ee3ce9680fcd7c12134cbc6'
@@ -202,218 +202,57 @@ router.post('/createCustom',async(req,res) => {
   const source =[{
     filename:"/package.json",
     type:"file",
-    code :`{
-      "name": "vue",
-      "version": "0.1.0",
-      "private": true,
-      "scripts": {
-        "serve": "vue-cli-service serve",
-        "build": "vue-cli-service build",
-        "lint": "vue-cli-service lint"
-      },
-      "dependencies": {
-        "@vue/cli-plugin-babel": "4.1.1",
-        "vue": "^2.6.11"
-      },
-      "devDependencies": {
-        "@vue/cli-plugin-eslint": "4.1.1",
-        "@vue/cli-service": "4.1.1",
-        "babel-eslint": "^10.0.3",
-        "eslint": "^6.7.2",
-        "eslint-plugin-vue": "^6.0.1",
-        "vue-template-compiler": "^2.6.11"
-      },
-      "eslintConfig": {
-        "root": true,
-        "env": {
-          "node": true
+    code :`{    
+      {
+        "name": "vanilla",
+        "version": "1.0.0",
+        "description": "JavaScript example starter project",
+        "main": "index.html",
+        "scripts": {
+          "start": "parcel index.html --open",
+          "build": "parcel build index.html"
         },
-        "extends": [
-          "plugin:vue/essential",
-          "eslint:recommended"
-        ],
-        "rules": {},
-        "parserOptions": {
-          "parser": "babel-eslint"
-        }
-      },
-      "postcss": {
-        "plugins": {
-          "autoprefixer": {}
-        }
-      },
-      "browserslist": [
-        "> 1%",
-        "last 2 versions",
-        "not ie <= 8"
-      ],
-      "keywords": [
-        "vue",
-        "vuejs",
-        "starter"
-      ],
-      "description": "Vue.js example starter project"
-    }`
+        "dependencies": {},
+        "devDependencies": {
+          "@babel/core": "7.2.0",
+          "parcel-bundler": "^1.6.1"
+        },
+        "keywords": [
+          "javascript",
+          "starter"
+        ]
+      }`
   },{
-  filename:"/public/index.html",
+  filename:"/index.html",
   type:"file",
   code :`<!DOCTYPE html>
-  <html lang="en">
+  <html>
     <head>
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width,initial-scale=1.0">
-      <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-      <title>codesandbox</title>
+      <title>Parcel Sandbox</title>
+      <meta charset="UTF-8" />
     </head>
+  
     <body>
-      <noscript>
-        <strong>We're sorry but cogether doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-      </noscript>
       <div id="app"></div>
-      <!-- built files will be auto injected -->
+  
+      <script src="src/index.js"></script>
     </body>
   </html>
   
   `
 },{
-  filename:"src/components/HelloWorld.vue",
+  filename:"/src/index.js",
   type:"file",
-  code :`<template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel"
-          target="_blank"
-          rel="noopener"
-        >babel</a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint"
-          target="_blank"
-          rel="noopener"
-        >eslint</a>
-      </li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li>
-        <a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a>
-      </li>
-      <li>
-        <a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a>
-      </li>
-      <li>
-        <a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a>
-      </li>
-      <li>
-        <a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a>
-      </li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li>
-        <a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a>
-      </li>
-      <li>
-        <a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-devtools#vue-devtools"
-          target="_blank"
-          rel="noopener"
-        >vue-devtools</a>
-      </li>
-      <li>
-        <a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a>
-      </li>
-      <li>
-        <a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a>
-      </li>
-    </ul>
-  </div>
-</template>
+  code :`import "./styles.css";
 
-<script>
-export default {
-  name: "HelloWorld",
-  props: {
-    msg: String
-  }
-};
-</script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>
-
+  document.getElementById("app").innerHTML = "<h1>Hello From Cogether</h1>";
   `
 },{
-  filename:"src/app.vue",
+  filename:"/src/styles.css",
   type:"file",
-  code :`<template>
-  <div id="app">
-    <HelloWorld msg="Hello Vue in Cogether!" />
-  </div>
-</template>
-
-<script>
-import HelloWorld from "./components/HelloWorld";
-
-export default {
-  name: "App",
-  components: {
-    HelloWorld
+  code :`body {
+    font-family: sans-serif;
   }
-};
-</script>
-
-<style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
-
-  `
-},{
-  filename:"src/main.js",
-  type:"file",
-  code :`import Vue from "vue";
-  import App from "./App.vue";
-  
-  Vue.config.productionTip = false;
-  
-  new Vue({
-    render: h => h(App)
-  }).$mount("#app");
-  
   `
 }
 ];
