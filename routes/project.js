@@ -12,6 +12,7 @@ const CREATEUSERPROJECTURL=domainForAuthApi+'/api/userProject/create';
 const FINDUSERPROJECT =domainForAuthApi+'/api/userProject/findOne';
 const GETCOLLABORATOR =domainForAuthApi+ '/api/userProject/getCollaborator/';
 const GETUSERID=domainForAuthApi+'/api/user/';
+const DELETECOLLABORATOR = domainForAuthApi+'api/userProject/deleteCollaborator'
 
 
 function getIdCopy(projectType){
@@ -61,8 +62,8 @@ router.get('/detail/:id',verify,async(req,res)=>{
      const project= await Project.findOne({_id:project_id});
      const retProject = modified(project);
      const url= GETUSERID+project.owner_id;
-    const user = await fetchAPI(url,req.header('auth-token'));
-    const collab = await fetchAPI(GETCOLLABORATOR+project_id,req.header('auth-token'));
+     const user = await fetchAPI(url,req.header('auth-token'));
+     const collab = await fetchAPI(GETCOLLABORATOR+project_id,req.header('auth-token'));
 
      res.send({project:retProject,user:user,collaborator:collab});
   }catch(err){
@@ -261,10 +262,25 @@ router.get('/read/:_id',verify,async(req,res)=>{
 router.put('/updateProject',verify,async(req,res)=>{
   const project = await Project.findOne({_id:req.body._id});
   if (req.user._id===project.owner_id){
+    const deleteCollab = async (url,token,list,project_id) =>{
+      try{
+        const deletedColl = await fetch(url,
+          {method:'DELETE', headers:{
+            "Content-Type":'application/json',
+            "auth-token":token
+          }, body:JSON.stringify({project_id:project_id,idList:list})});
+          const json = await deletedColl.json();
+          return json;
+        } catch (err){
+          console.log(err);
+        }
+    }
+
     const updateProject= await Project.updateOne(
       {_id:req.body._id},
       {$set:{title:req.body.title,description:req.body.description,last_updated:Date.now()}
     });
+    const res = await deleteCollab(DELETECOLLABORATOR,req.header('auth-token'),req.body.deletedCollab,project._id);
     res.send({status:"OK"});
   }else{
     req.status(400).send({err:'error to change data'});
