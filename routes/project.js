@@ -12,7 +12,7 @@ const CREATEUSERPROJECTURL=domainForAuthApi+'/api/userProject/create';
 const FINDUSERPROJECT =domainForAuthApi+'/api/userProject/findOne';
 const GETCOLLABORATOR =domainForAuthApi+ '/api/userProject/getCollaborator/';
 const GETUSERID=domainForAuthApi+'/api/user/';
-const DELETECOLLABORATOR = domainForAuthApi+'api/userProject/deleteCollaborator'
+const DELETECOLLABORATOR = domainForAuthApi+'/api/userProject/deleteCollaborator'
 
 
 function getIdCopy(projectType){
@@ -280,8 +280,8 @@ router.put('/updateProject',verify,async(req,res)=>{
       {_id:req.body._id},
       {$set:{title:req.body.title,description:req.body.description,last_updated:Date.now()}
     });
-    const res = await deleteCollab(DELETECOLLABORATOR,req.header('auth-token'),req.body.deletedCollab,project._id);
-    res.send({status:"OK"});
+    const respond = await deleteCollab(DELETECOLLABORATOR,req.header('auth-token'),req.body.deletedCollab,project._id);
+    res.status(200).send({status:"OK"});
   }else{
     req.status(400).send({err:'error to change data'});
   }
